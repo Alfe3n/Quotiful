@@ -68,7 +68,7 @@ function Home() {
   }
   return (
     <div className="w-screen min-h-screen page-container bg-violet">
-      <Navbar />
+      <Navbar home={true} />
       <div className="flex flex-col items-center content-container gap-y-16">
         <div className="flex flex-col items-center justify-around w-5/6 p-4 leading-relaxed text-white md:p-8 md:w-2/3 quote-container bg-red rounded-3xl gap-y-4 md:gap-y-8 md:leading-loose">
           <p className="text-lg text-center md:text-xl lg:2xl">{quote.content}</p>
