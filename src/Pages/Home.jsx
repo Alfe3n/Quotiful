@@ -2,8 +2,9 @@ import { React, useState, useEffect } from 'react'
 import axios from 'axios'
 import { BsFillBookmarkPlusFill, BsFillBookmarkCheckFill } from 'react-icons/bs'
 import Navbar from '../Components/Navbar'
-import { addBookmark } from '../Slice'
+import { addBookmark, removeBookmark } from '../Slice'
 import { useDispatch } from 'react-redux'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 function Home() {
   const dispatch = useDispatch()
@@ -71,16 +72,22 @@ function Home() {
       <Navbar home={true} />
       <div className="flex flex-col items-center content-container gap-y-16">
         <div className="flex flex-col items-center justify-around w-5/6 p-4 leading-relaxed text-white md:p-8 md:w-2/3 quote-container bg-red rounded-3xl gap-y-4 md:gap-y-8 md:leading-loose">
-          <p className="text-lg text-center md:text-xl lg:2xl">{quote.content}</p>
-          <div className="flex items-center justify-between w-full ">
-            <p className="hidden text-red md:block">invisible</p>
-            <p className="font-extrabold text-left md:text-lg lg:xl">~{quote.author}</p>
-            {isBookmarked ? (
-              <BsFillBookmarkCheckFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
-            ) : (
-              <BsFillBookmarkPlusFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
-            )}
-          </div>
+          {quote.author == undefined ? (
+            <PulseLoader color={'#009C51'} />
+          ) : (
+            <>
+              <p className="text-lg text-center md:text-xl lg:2xl">{quote.content}</p>
+              <div className="flex items-center justify-between w-full ">
+                <p className="hidden text-red md:block">invisible</p>
+                <p className="font-extrabold text-left md:text-lg lg:xl">~{quote.author}</p>
+                {isBookmarked ? (
+                  <BsFillBookmarkCheckFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
+                ) : (
+                  <BsFillBookmarkPlusFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
+                )}
+              </div>
+            </>
+          )}
         </div>
 
         <select
