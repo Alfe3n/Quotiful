@@ -1,12 +1,16 @@
 import { React, useState, useEffect } from 'react'
 import axios from 'axios'
 import { BsFillBookmarkPlusFill, BsFillBookmarkCheckFill } from 'react-icons/bs'
-
 import Navbar from '../Components/Navbar'
+import { addBookmark } from '../Slice'
+import { useDispatch } from 'react-redux'
+
 function Home() {
+  const dispatch = useDispatch()
   const [quote, setQuote] = useState([])
   const [category, setCatogory] = useState('')
   const [categoryOptions, setCatogoryOptions] = useState([])
+  const [isBookmarked, setIsBookmarked] = useState(false)
 
   function randomQuote() {
     axios
@@ -59,6 +63,10 @@ function Home() {
         })
     }
   }
+  function handleBookmark() {
+    setIsBookmarked(!isBookmarked)
+    if (!isBookmarked) dispatch(addBookmark(quote))
+  }
   return (
     <div className="w-screen min-h-screen page-container bg-violet">
       <Navbar />
@@ -68,7 +76,7 @@ function Home() {
           <div className="flex items-center justify-between w-full ">
             <p className="hidden text-red md:block">invisible</p>
             <p className="font-extrabold text-left md:text-lg lg:xl">~{quote.author}</p>
-            <BsFillBookmarkPlusFill className="text-xl text-white cursor-pointer" />
+            <BsFillBookmarkPlusFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
           </div>
         </div>
 
@@ -90,6 +98,7 @@ function Home() {
           className="px-2 py-2 mb-16 text-sm text-white rounded-full md:text-base md:px-6 lg:px-8 bg-green"
           onClick={() => {
             changeQuote()
+            setIsBookmarked(false)
           }}>
           Next Quote
         </button>
