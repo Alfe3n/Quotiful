@@ -32,7 +32,6 @@ function Home() {
         .get('https://api.quotable.io/tags')
         .then((res) => {
           let arr = []
-          // console.log(res.data)
           res.data.map((item) => arr.push(item.name))
           setCatogoryOptions(arr)
         })
@@ -55,7 +54,6 @@ function Home() {
       axios
         .get('https://api.quotable.io/random?tags=' + category)
         .then((response) => {
-          // console.log(category)
           setQuote(response.data)
         })
         .catch((error) => {
@@ -66,6 +64,7 @@ function Home() {
   function handleBookmark() {
     setIsBookmarked(!isBookmarked)
     if (!isBookmarked) dispatch(addBookmark(quote))
+    else dispatch(removeBookmark(quote._id))
   }
   return (
     <div className="w-screen min-h-screen page-container bg-violet">
@@ -76,7 +75,11 @@ function Home() {
           <div className="flex items-center justify-between w-full ">
             <p className="hidden text-red md:block">invisible</p>
             <p className="font-extrabold text-left md:text-lg lg:xl">~{quote.author}</p>
-            <BsFillBookmarkPlusFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
+            {isBookmarked ? (
+              <BsFillBookmarkCheckFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
+            ) : (
+              <BsFillBookmarkPlusFill className="text-xl text-white cursor-pointer" onClick={handleBookmark} />
+            )}
           </div>
         </div>
 
