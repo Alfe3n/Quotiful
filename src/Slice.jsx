@@ -22,8 +22,12 @@ export const bookmarkSlice = createSlice({
       return {
         bookmark: currentState.filter((quote) => quote._id != action.payload)
       }
+    },
+    clearAll: (state) => {
+      state.bookmark = []
+      console.log('inside slice')
     }
   }
 })
-export const { addBookmark, removeBookmark } = bookmarkSlice.actions
+export const { addBookmark, removeBookmark, clearAll } = bookmarkSlice.actions
 export default bookmarkSlice.reducer

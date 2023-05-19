@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeBookmark } from '../Slice'
+import { removeBookmark, clearAll } from '../Slice'
 
 import { BsFillBookmarkCheckFill } from 'react-icons/bs'
 
@@ -18,6 +18,12 @@ function Bookmark() {
         <h1 className="mt-20 text-2xl font-extrabold cursor-pointer text-red md:text-6xl">No Bookmarks!</h1>
       ) : (
         <>
+          <div className="flex justify-end w-2/3 mb-16">
+            <p className="text-violet">invisble</p>
+            <p className="text-lg font-bold md:text-2xl text-green cursor-pointer" onClick={() => dispatch(clearAll())}>
+              Clear All
+            </p>
+          </div>
           {bookmarks.map((quote) => {
             return (
               <div
