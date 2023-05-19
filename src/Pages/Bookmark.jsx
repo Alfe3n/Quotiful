@@ -1,12 +1,16 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useSelector, useDispatch } from 'react-redux'
+import { removeBookmark } from '../Slice'
 
 import { BsFillBookmarkCheckFill } from 'react-icons/bs'
 
 function Bookmark() {
   const bookmarks = useSelector((state) => state.bookmarklist.bookmark)
-
+  const dispatch = useDispatch()
+  function handleBookmark(item) {
+    dispatch(removeBookmark(item._id))
+  }
   return (
     <div className="flex flex-col items-center min-h-screen page-container bg-violet">
       <Navbar bookmark={true} />
@@ -23,7 +27,7 @@ function Bookmark() {
                 <div className="flex items-center justify-between w-full">
                   <p className="hidden text-red md:block">invisible</p>
                   <p className="font-extrabold text-left md:text-lg lg:xl">~{quote.author}</p>
-                  <BsFillBookmarkCheckFill className="text-xl text-white cursor-pointer" />
+                  <BsFillBookmarkCheckFill className="text-xl text-white cursor-pointer" onClick={() => handleBookmark(quote)} />
                 </div>
               </div>
             )
